@@ -1,0 +1,499 @@
+<div id="reviewContainer">REVIEWS
+</div>
+<h2>Add a review</h2>
+<div class="star-rating">
+  <div class="stars" data-rating="{{ avg_rating }}">
+    <span class="star" data-value="1">&#9733;</span>
+    <span class="star" data-value="2">&#9733;</span>
+    <span class="star" data-value="3">&#9733;</span>
+    <span class="star" data-value="4">&#9733;</span>
+    <span class="star" data-value="5">&#9733;</span>
+  </div>
+  <div class="rating-form">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <form id="reviewForm" class="review-form" enctype="multipart/form-data">
+      <div class="stars-textarea">
+        <div class="stars-container">
+          <textarea
+            name="review"
+            rows="10"
+            cols="50"
+            placeholder="Write your review here..."
+            class="review-input">{{ review }}</textarea>
+          <input
+            type="hidden"
+            name="rating"
+            value="{{ avg_rating }}"
+            class="rating-input">
+          <input
+            type="hidden"
+            name="prod"
+            value="{{ product.id }}"
+            class="rating-input">
+            <input
+              type="hidden"
+              name="shopName"
+              value="{{ shop.name }}"
+              class="rating-input">            
+            <input
+              type="hidden"
+              name="shopDomain"
+              value="{{ shop.domain }}"
+              class="rating-input">
+            <input
+              type="hidden"
+              name="shopID"
+              value="{{ shop.id }}"
+              class="rating-input">
+            <input 
+              type="file" 
+              name="imgVidFile" 
+              class="rating-input" 
+              accept="image/*, video/*">
+
+          
+
+          {% if customer %}
+          <input
+            type="hidden"
+            name="cust"
+            value="{{ customer.id }}"
+            class="rating-input">
+          <input
+            type="hidden"
+            name="custName"
+            value="{{ customer.name }}"
+            class="rating-input">
+            <input
+              type="hidden"
+              name="email"
+              value="{{ customer.email }}"
+              class="rating-input">
+          
+          {% else %}
+            <input
+            type="text"
+            name="custName"
+            placeholder="Enter your name."
+            class="rating-input" required>{{name}}</input>
+            <input
+            type="email"
+            name="email"
+            placeholder="Enter your email."
+            class="rating-input" required>{{email}}</input>
+        {% endif %}
+            
+          <input
+            type="submit"
+            value="Submit Rating and Review"
+            class="submit-button">   
+        </div>
+      </div>
+    </form>
+  </div>
+    <br>
+    <br>
+    <div id="total-rating"></div>
+    <div id="avg-rating"></div>
+    <hr>
+    <div id="ratings-container"></div>
+
+    <div id="customToast" class="custom-toast hide">
+      <span id="customToastMessage"></span>
+    </div>
+
+
+<style> 
+  .custom-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .custom-toast.show {
+    opacity: 1;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .image-container {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .image-container img {
+    width: 200px;
+    height: auto;
+    transition: width 0.3s ease;
+  }
+
+  .image-container img.expanded {
+    width: auto;
+    max-height: 80vh; 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+  }
+  .review {
+    width: 100%;
+    height: 500px;
+  }
+
+  .star-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stars {
+    display: flex;
+  }
+
+  .star {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 40px;
+    margin-right: 5px;
+  }
+
+  .star.active,
+  .star:hover {
+    color: #ff0000;
+  }
+
+  .rating-form {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .stars-textarea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stars-container {
+    margin-bottom: 10px;
+  }
+
+  .review-input {
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    resize: vertical;
+  }
+
+  .rating-input {
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .submit-button {
+    background-color: #ff0000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .submit-button:hover {
+    background-color: #e60000;
+  }
+</style>
+
+
+<script>
+const server = "https://dbcd-110-226-182-52.ngrok-free.app" // provide a server link.
+
+fetch('http://127.0.0.1:8000/router/reviews/')
+  .then(response => response.json())
+  .then(reviews => {
+    const currentURL = location.href;
+    console.log(currentURL)
+    if (currentURL.indexOf("products") !== -1) {
+      const reviewContainer = document.getElementById('reviewContainer')
+
+      const reviewDisplay = document.createElement('h1');
+      reviewContainer.appendChild(reviewDisplay);
+
+      const productid = {{ product.id | json }};
+      
+      reviews.forEach((item) => {
+        if (Shopify.shop === item.shopDomain && productid === item.prod && item.state === true) {
+          const reviewElement = document.createElement('div');
+          const reviewText = document.createElement('p');
+
+          reviewText.innerHTML = `
+            <hr>
+           <strong><p>${item.custName}</p></strong>
+            <h3><b>Rating: ${item.rating} Stars</b></h3>
+            <h3>Review: ${item.review}</h3>
+            <img src="${item.imgVidFile}" alt="review image" />
+            <p>Votes: ${item.votes}</p>
+            {% if customer.id == null %}
+            <span>Login to vote!</span>
+            {% else  %}
+
+            <form id="like-review-form" action="https://dbcd-110-226-182-52.ngrok-free.app/like_review/" method="post">
+              <input type="hidden" name="uid" value="${item.uid}">
+              <input type="hidden" name="email" value="{{ customer.email }}">
+              <button type="submit">Like</button>
+            </form>
+
+            <form id="dislike-review-form" action="https://dbcd-110-226-182-52.ngrok-free.app/dislike_review/" method="post">
+              <input type="hidden" name="uid" value="${item.uid}">
+              <input type="hidden" name="email" value="{{ customer.email }}">
+              <button type="submit">Dislike</button>
+            </form>
+            {% endif %}
+          `;
+
+          reviewElement.appendChild(reviewText);
+          reviewContainer.appendChild(reviewElement); // Append the review to the container
+        }
+      });
+    }
+  })
+  .catch(error => {
+    console.error("Error fetching reviews:", error);
+  });
+
+
+$(document).ready(function() {
+    $('#like-review-form').submit(function(e) {
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(data) {
+          if (data.message) {
+            alert(data.message);
+          }
+          // You can also update the button's appearance or perform other actions as needed.
+        },
+        error: function(xhr, textStatus, errorThrown) {
+          console.error(xhr.responseText);
+        }
+      });
+    });
+  });
+
+$(document).ready(function() {
+    $('#dislike-review-form').submit(function(e) {
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(data) {
+          if (data.message) {
+            alert(data.message);
+          }
+          // You can also update the button's appearance or perform other actions as needed.
+        },
+        error: function(xhr, textStatus, errorThrown) {
+          console.error(xhr.responseText);
+        }
+      });
+    });
+  });
+
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = false;
+var responseData;
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    responseData = JSON.parse(this.responseText); 
+    console.log(responseData); 
+    var ratingsContainer = document.getElementById("ratings-container");
+    var totalRating = document.getElementById("total-rating");
+    var avgRating = document.getElementById("avg-rating");
+    var count = 0;
+    var sum = 0;
+    for (var i=0; i<responseData.length; i++){
+      var obj = responseData[i]
+      if(obj.shopID == {{ shop.id }}){
+          if(obj.prod == {{ product.id }} && obj.state){
+          var count = count+1;
+
+          var nameElement = document.createElement("div");
+          nameElement.textContent = obj.custName;
+          ratingsContainer.appendChild(nameElement);
+
+          var ratingElement = document.createElement("div");
+          ratingElement.textContent = "Rating: " + obj.rating;
+          sum = sum+obj.rating
+          ratingsContainer.appendChild(ratingElement);
+
+          var imageDivElement = document.createElement("div");
+          imageDivElement.classList.add("image-container");
+          var imgElement = document.createElement("img")
+          imgElement.src=server+"/media/"+obj.imgVidFile;
+          imgElement.alt="Image Error"
+          imageDivElement.appendChild(imgElement);
+          ratingsContainer.appendChild(imageDivElement);
+          imgElement.addEventListener('click', function() {
+            // Code to execute when the image is clicked
+            console.log('Image clicked!');
+          });
+
+          var reviewElement = document.createElement("div");
+          reviewElement.textContent = "Review: " + obj.review;
+          ratingsContainer.appendChild(reviewElement);
+          const hr = document.createElement('hr');
+          ratingsContainer.appendChild(hr)
+        }
+      }
+    }
+    var totalElement = document.createElement("div");
+    totalElement.textContent = "Total Ratings = "+count;
+    totalRating.appendChild(totalElement);
+    
+    var avgElement = document.createElement("div");
+    let avg = sum/count;
+    avgElement.textContent = "Average Ratings = "+avg.toFixed(1);
+    avgRating.appendChild(avgElement);
+  }
+});
+
+xhr.open("GET", server);
+xhr.setRequestHeader("Shop-Name", "{{ shop.name }}");
+xhr.send();
+
+
+$(document).ready(function() {
+  var productImageUrl = "{{ product.featured_image | img_url: 'medium'   }}"
+  var productName = "{{ product.title }}"
+  var productDesc = "{{ product.content }}"
+  
+  $('#reviewForm').submit(function(event) {
+    event.preventDefault(); 
+    var formData = new FormData(this);
+    formData.append("productImageUrl", productImageUrl)
+    formData.append("productName", productName)
+    formData.append("productDesc", productDesc)
+    $.ajax({
+      url: server+'/store-rating-and-review',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+        console.log('Form submitted successfully!');
+        console.log(response);
+        showCustomToast('Review submitted successfully!', 'success');
+        $('#reviewForm')[0].reset();
+      },
+      error: function(xhr, status, error) {
+        console.error('Error submitting form:', error);
+        showCustomToast('Error submitting form. Please try again.', 'error');
+      }
+    });
+  });
+  function showCustomToast(message, type) {
+    var toastElement = $('#customToast');
+    var toastMessageElement = $('#customToastMessage');
+
+    toastMessageElement.text(message);
+    toastElement.attr('class', 'custom-toast ' + type);
+
+    toastElement.removeClass('hide').addClass('show');
+
+    setTimeout(function() {
+      toastElement.removeClass('show').addClass('hide');
+    }, 3000);
+  }
+});
+
+
+const starsContainer = document.querySelector('.stars');
+const ratingInput = document.querySelector('.rating-input');
+const stars = starsContainer.querySelectorAll('.star');
+
+starsContainer.addEventListener('mouseover', (event) => {
+  const star = event.target;
+  if (star.classList.contains('star')) {
+    const rating = parseInt(star.getAttribute('data-value'));
+    highlightStars(rating);
+  }
+});
+
+starsContainer.addEventListener('click', (event) => {
+  const star = event.target;
+  if (star.classList.contains('star')) {
+    const rating = parseInt(star.getAttribute('data-value'));
+    setRating(rating);
+  }
+});
+
+starsContainer.addEventListener('mouseout', () => {
+  const currentRating = parseInt(ratingInput.value);
+  highlightStars(currentRating);
+});
+
+function setRating(rating) {
+  ratingInput.value = rating;
+  highlightStars(rating);
+}
+
+function highlightStars(rating) {
+  stars.forEach((star) => {
+    const value = parseInt(star.getAttribute('data-value'));
+    if (value <= rating) {
+      star.classList.add('active');
+    } else {
+      star.classList.remove('active');
+    }
+  });
+}
+
+const initialRating = parseInt(ratingInput.getAttribute('value'));
+setRating(initialRating);
+
+</script>
+
+{% schema %}
+  {
+    "name": "Star Rating",
+    "target": "section",
+    "enabled_on": {
+      "templates": ["product"]
+    },
+    "settings": [
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product",
+        "autofill": true
+      }, {
+        "type": "color",
+        "id": "colour",
+        "label": "Star Colour",
+        "default": "#ff0000"
+      }
+    ]
+  }
+{% endschema %}
