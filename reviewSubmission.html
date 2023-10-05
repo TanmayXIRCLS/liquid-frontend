@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review Submission Form</title>
+    <link rel="stylesheet" href="./css/reviewform.css" />
+  </head>
+  <body>
+    <div class="formContainer card">
+      <h3>Submit Your Review</h3>
+      <form id="reviewForm">
+        <div class="container">
+          <div class="star-widgets">
+            <input
+              type="radio"
+              name="rate"
+              value="5"
+              class="starRadio"
+              id="rate-5"
+            />
+            <label for="rate-5" class="fas fa-star"></label>
+            <input
+              type="radio"
+              name="rate"
+              value="4"
+              class="starRadio"
+              id="rate-4"
+            />
+            <label for="rate-4" class="fas fa-star"></label>
+            <input
+              type="radio"
+              name="rate"
+              value="3"
+              class="starRadio"
+              id="rate-3"
+            />
+            <label for="rate-3" class="fas fa-star"></label>
+            <input
+              type="radio"
+              name="rate"
+              value="2"
+              class="starRadio"
+              id="rate-2"
+            />
+            <label for="rate-2" class="fas fa-star"></label>
+            <input
+              type="radio"
+              name="rate"
+              value="1"
+              class="starRadio"
+              id="rate-1"
+            />
+            <label for="rate-1" class="fas fa-star"></label>
+          </div>
+        </div>
+        <div class="reviewFormInputDiv">
+          <label for="name" class="reviewFormLabel">Name:</label><br />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+            required
+            class="reviewFormInput"
+          />
+        </div>
+        <div class="reviewFormInputDiv">
+          <label for="email" class="reviewFormLabel">Email:</label><br />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+            class="reviewFormInput"
+          />
+        </div>
+        <div class="reviewFormInputDiv">
+          <label for="review" class="reviewFormLabel">Review:</label><br />
+          <textarea
+            id="review"
+            name="review"
+            rows="5"
+            placeholder="Please enter your review here"
+            required
+            class="reviewFormInput"
+          ></textarea>
+        </div>
+        <div class="reviewFormInputDiv">
+          <label for="image" class="reviewFormLabel">Image Upload:</label><br />
+          <input
+            type="file"
+            id="image"
+            class="reviewFormInput reviewFormFileInput"
+            name="image"
+            accept="image/*"
+          />
+        </div>
+        <div>
+          <button type="submit" class="reviewSubmitBtn">Submit Review</button>
+        </div>
+      </form>
+    </div>
+
+    <script
+      src="https://kit.fontawesome.com/f543c45c17.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/reviewform.js"></script>
+  </body>
+</html>

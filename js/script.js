@@ -31,7 +31,7 @@ function getDateDifference(givenDate) {
 
 }
 
-fetch('./reviews.json')
+fetch('./assets/reviews.json')
     .then(response => response.json())
     .then(data => {
         data.reverse().map(ele => {
@@ -69,13 +69,13 @@ fetch('./reviews.json')
                         <img src="./assets/icons/arrow-up.svg" alt="arrow up" />
                         </button>
                     </form>
-                    <p>3</p>
+                    <p>${ele.review_likes.length}</p>
                     <form action="" method="post">
                         <button class="like-dislikes-btn" type="submit">
                         <img src="./assets/icons/arrow-down.svg" alt="arrow down" />
                         </button>
                     </form>
-                    <p>2</p>
+                    <p>${ele.dislikes.length}</p>
                 </div>
             </div>
             `
@@ -84,3 +84,6 @@ fetch('./reviews.json')
     .catch(error => {
         console.error('Error loading JSON file:', error);
     });
+
+
+// review submission

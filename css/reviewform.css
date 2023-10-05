@@ -2,7 +2,7 @@
 
 :root {
     --text-color: rgba(0, 0, 0, 0.7);
-    --primary-color: rgba(115, 103, 240, 1);
+    --primary-color: rgb(65, 65, 65);
     --avatar-color: rgb(255, 255, 255);
     --avatar-bg-color: #fd7e97;
     --bg-color-1: rgb(255, 255, 255);
@@ -27,6 +27,10 @@
 
 body {
     background-color: var(--bg-color-2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 h1 {
@@ -47,6 +51,11 @@ h4 {
 
 p {
     font-size: var(--p-font-size);
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 button {
@@ -84,77 +93,66 @@ button {
     justify-content: space-between;
 }
 
-.reviewHeader {
+.container {
+    width: 400px;
+    padding: 10px 20px;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    align-items: center;
-    color: var(--text-color);
 }
 
-.custReviewHeading {
-    margin-bottom: 13px;
+.container .star-widgets input {
+    display: none;
 }
 
-.star-rating {
-    gap: 5px;
+.star-widgets label {
+    font-size: 25px;
+    color: #a5a5a5;
+    padding: 10px;
+    float: right;
+    transition: all 0.2s ease;
 }
 
-.reviewBtn {
-    width: 100%;
+.starRadio:not(:checked)~label:hover,
+.starRadio:not(:checked)~label:hover~label {
+    color: #fd4;
 }
 
-.reviewsBody {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+.starRadio:checked~label {
+    color: #fd4;
 }
 
-.reviewsCard {
-    width: 30%;
-    gap: 30px;
+input#rate-5:checked~label {
+    color: #fe7;
+    text-shadow: 0 0 20px #952;
 }
 
-.reviewerInfo {
-    display: flex;
-    align-items: center;
+.reviewFormInputDiv {
     margin-top: 8px;
-    margin-bottom: 20px;
-    gap: 5px;
 }
 
-.reviewerName {
+.reviewFormInput {
+    width: 100%;
+    padding: 8px 5px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+}
+
+.reviewFormInput:focus {
+    outline: none;
+}
+
+.reviewFormFileInput {
+    border: none;
+}
+
+
+.reviewFormLabel {
+    font-size: var(--p-font-size);
     font-weight: var(--bold-weight);
 }
 
-.avatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    color: var(--avatar-color);
-    background-color: var(--avatar-bg-color);
-}
-
-.blue-tick {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-}
-
-.likes-dislikes {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.like-dislikes-btn {
-    background-color: transparent;
-    padding: 5px;
-    cursor: pointer;
-}
-
-@media screen and (max-width: 785px) {
-    .reviewsCard {
-        width: 80%;
-    }
+.reviewSubmitBtn {
+    margin-top: 15px;
 }
