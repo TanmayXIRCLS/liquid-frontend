@@ -31,8 +31,6 @@ function getDateDifference(givenDate) {
 
 }
 
-console.log(getDateDifference("2023-10-01"))
-
 fetch('./reviews.json')
     .then(response => response.json())
     .then(data => {
@@ -66,10 +64,18 @@ fetch('./reviews.json')
                 <p>${ele.review}</p>
 
                 <div class="likes-dislikes">
-                    <img src="./assets/icons/arrow-up.svg" alt="arrow up" />
-                    <p>${ele.review_likes.length}</p>
-                    <img src="./assets/icons/arrow-down.svg" alt="arrow down" />
-                    <p>${ele.dislikes.length}</p>
+                    <form action="" method="post">
+                        <button class="like-dislikes-btn" type="submit">
+                        <img src="./assets/icons/arrow-up.svg" alt="arrow up" />
+                        </button>
+                    </form>
+                    <p>3</p>
+                    <form action="" method="post">
+                        <button class="like-dislikes-btn" type="submit">
+                        <img src="./assets/icons/arrow-down.svg" alt="arrow down" />
+                        </button>
+                    </form>
+                    <p>2</p>
                 </div>
             </div>
             `

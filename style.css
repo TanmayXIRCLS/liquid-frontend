@@ -147,6 +147,12 @@ button {
     align-items: center;
 }
 
+.like-dislikes-btn {
+    background-color: transparent;
+    padding: 5px;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 785px) {
     .reviewsCard {
         width: 80%;
