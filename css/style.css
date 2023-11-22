@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 :root {
-    --text-color: rgba(0, 0, 0, 0.7);
-    --primary-color: rgba(115, 103, 240, 1);
-    --avatar-color: rgb(255, 255, 255);
+    --text-color: #000000b3;
+    --primary-color: #7367f0;
+    --avatar-color: #ffffff;
     --avatar-bg-color: #fd7e97;
-    --bg-color-1: rgb(255, 255, 255);
-    --bg-color-2: rgb(221, 221, 221);
+    --bg-color-1: #ffffff;
+    --bg-color-2: #dddddd;
     --h1-font-size: 30px;
     --h2-font-size: 25px;
     --h3-font-size: 20px;
@@ -16,6 +16,9 @@
     --bold-weight: 700;
     --medium-weight: 500;
     --font-family: 'Poppins', sans-serif;
+    --border-width: 0px;
+    --border-color: #000000;
+    --border-radius: 10px;
 }
 
 * {
@@ -51,7 +54,6 @@ p {
 
 a {
     text-decoration: none;
-    color: black;
 }
 
 button {
@@ -60,7 +62,9 @@ button {
     background-color: var(--primary-color);
     color: var(--bg-color-1);
     padding: 5px 10px;
-    margin: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card {
@@ -89,11 +93,75 @@ button {
     justify-content: space-between;
 }
 
+.main-container {
+    position: relative;
+}
+
+.customDiv {
+    position: fixed;
+    top: 250px;
+    right: 0;
+}
+
+input[type="color"] {
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    padding: 0;
+}
+
+.formBody {
+    width: 50%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 0;
+    transition: all 0.5s linear;
+}
+
+.formBodyUp {
+    top: -100%;
+}
+
+.formBody>h3 {
+    text-align: center;
+}
+
+.customSubmit {
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: var(--bg-color-1);
+    padding: 10px;
+    margin: 8px 0;
+}
+
 .reviewHeader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     color: var(--text-color);
+}
+
+.reviewHeaderBody {
+    display: flex;
+    gap: 20px;
+}
+
+.reviewHeaderBodyRight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 20px;
+    border-right: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.ratingValue p {
+    font-size: var(--h1-font-size);
+    font-weight: var(--medium-weight);
+}
+
+.ratingValue p span {
+    font-weight: var(--bold-weight);
 }
 
 .custReviewHeading {
@@ -105,30 +173,85 @@ button {
 }
 
 .reviewBtn {
-    width: 100%;
+    width: 150px;
 }
 
 .reviewBtn a {
     color: var(--bg-color-1);
 }
 
+.productPhotosBody {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+}
+
+.productPhotosCard {
+    width: 80px;
+    aspect-ratio: 1/1;
+    background-color: #f7f7f7;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.productPhotosImgOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.productPhotosImgOverlayText {
+    color: #ffffff;
+    font-size: var(--h4-font-size);
+    text-align: center;
+}
+
+.productPhotosImg {
+    width: 100%;
+}
+
 .reviewsBody {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    height: 60vh;
+    margin: 20px 0;
+    overflow-y: scroll;
+}
+
+.reviewsBody::-webkit-scrollbar {
+    display: none;
 }
 
 .reviewsCard {
-    width: 30%;
+    width: 75%;
     gap: 30px;
+    color: var(--text-color);
+    border: var(--border-width) solid var(--border-color);
+}
+
+.reviewsCardBody {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .reviewerInfo {
     display: flex;
     align-items: center;
-    margin-top: 8px;
-    margin-bottom: 20px;
     gap: 5px;
 }
 
@@ -137,11 +260,15 @@ button {
 }
 
 .avatar {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     color: var(--avatar-color);
     background-color: var(--avatar-bg-color);
+}
+
+.verified {
+    font-size: 12px;
 }
 
 .blue-tick {
@@ -152,8 +279,9 @@ button {
 
 .likes-dislikes {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
+    align-self: self-end;
 }
 
 .like-dislikes-btn {

@@ -1,76 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
 
-    <link rel="stylesheet" href="./css/style.css" />
-  </head>
-  <body>
-    <div class="reviewHeader card">
-      <h3 class="custReviewHeading">Customer Reviews</h3>
-      <div class="star-rating flex-center">
-        <img src="./assets/icons/default-star.svg" alt="default-star" />
-        <img src="./assets/icons/default-star.svg" alt="default-star" />
-        <img src="./assets/icons/default-star.svg" alt="default-star" />
-        <img src="./assets/icons/default-star.svg" alt="default-star" />
-        <img src="./assets/icons/blank-star.svg" alt="blank-star" />
-        <p>4 out of 5</p>
-      </div>
-      <p>Based on 2 Reviews</p>
-      <button class="reviewBtn">
-        <a href="./reviewSubmission.html">Write a review</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+  <div class="main-container">
+    <div class="customDiv">
+      <button id="customBtn">
+        <img src="./assets/icons/settings-icon.svg" alt="" width="30" />
       </button>
     </div>
 
-    <div class="reviewsBody" id="reviewsBody">
-      <div class="card reviewsCard">
-        <div class="reveiewCardHeader flex-between">
-          <div class="star-rating flex-center">
-            <img src="./assets/icons/default-star.svg" alt="default-star" />
-            <img src="./assets/icons/default-star.svg" alt="default-star" />
-            <img src="./assets/icons/default-star.svg" alt="default-star" />
-            <img src="./assets/icons/default-star.svg" alt="default-star" />
-            <img src="./assets/icons/blank-star.svg" alt="blank-star" />
+    <div id="formBody" class="formBody formBodyUp card">
+      <img src="./assets/icons/cross.svg" alt="cross" width="20" />
+      <h3>Customization form</h3>
+      <form id="customForm">
+        <div>
+          <label for="color">Text color:</label>
+          <input id="customTextColor" type="color" id="color" name="color" value="#ff0000" />
+          <br />
+        </div>
+
+        <div>
+          <label for="color">Primary color:</label>
+          <input id="customBgColor" type="color" id="color" name="color" value="#ff0000" />
+          <br />
+        </div>
+
+        <div>
+          <label for="customBorderWidth">Border Width:</label>
+          <input id="customBorderWidth" type="number" name="border_width" value="2" min="0" max="10" />
+          <br />
+        </div>
+
+        <input id="customSubmit" class="customSubmit" type="submit" value="Submit" />
+      </form>
+    </div>
+
+    <div class="reviewHeader card">
+      <h3 class="custReviewHeading">Customer Reviews</h3>
+
+      <div class="reviewHeaderBody">
+        <div class="reviewHeaderBodyRight">
+          <div class="ratingValue">
+            <p><span>4.5</span>/5</p>
           </div>
 
-          <p>Yesterday</p>
+          <div>
+            <div class="star-rating">
+              <img src="./assets/icons/default-star.svg" alt="default-star" />
+              <img src="./assets/icons/default-star.svg" alt="default-star" />
+              <img src="./assets/icons/default-star.svg" alt="default-star" />
+              <img src="./assets/icons/default-star.svg" alt="default-star" />
+              <img src="./assets/icons/blank-star.svg" alt="blank-star" />
+            </div>
+            <p id="reviewTotal">Based on 2 Reviews</p>
+          </div>
         </div>
 
-        <div class="reviewerInfo">
-          <div class="avatar flex-center"><span>JD</span></div>
-          <h4 class="reviewerName">Rajeev Tikekar</h4>
-          <img
-            src="./assets/icons/blue-tick.svg"
-            alt="Blue Tick"
-            class="blue-tick"
-          />
-        </div>
-
-        <p>
-          Best Service I've ever got... keep it up Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Dignissimos, minus iusto! Veniam atque
-          porro ipsa nobis adipisci vel facilis, laborum quidem amet eveniet
-          vero maiores aliquid minus ut natus? Tempore.
-        </p>
-        <div class="likes-dislikes">
-          <form action="" method="post">
-            <button class="like-dislikes-btn" type="submit">
-              <img src="./assets/icons/arrow-up.svg" alt="arrow up" />
-            </button>
-          </form>
-          <p>3</p>
-          <form action="" method="post">
-            <button class="like-dislikes-btn" type="submit">
-              <img src="./assets/icons/arrow-down.svg" alt="arrow down" />
-            </button>
-          </form>
-          <p>2</p>
+        <div class="reviewHeaderBodyLeft">
+          <p>Write a review</p>
+          <button class="reviewBtn">
+            <a href="./reviewSubmission.html">Write a review</a>
+          </button>
         </div>
       </div>
     </div>
 
-    <script type="module" src="./js/script.js"></script>
-  </body>
+    <div class="productPhotos card">
+      <h3 class="custReviewHeading">Photos from customers</h3>
+
+      <div id="productPhotosBody" class="productPhotosBody">
+        <!-- <div class="productPhotosCard">
+          <img class="productPhotosImg" src="./assets/images/review.jpeg" alt="">
+        </div> -->
+      </div>
+    </div>
+
+    <div class="reviewsBody" id="reviewsBody">
+
+      <div class="card reviewsCard">
+        <div class="reviewsCardBody">
+
+          <div style="width: 25%;">
+            <div class="reviewerInfo">
+              <div class="avatar flex-center"><span>JD</span></div>
+              <div>
+                <h4 class="reviewerName">Rajeev Tikekar</h4>
+                <span class="flex-between verified" style="gap: 5px;">
+                  <img src="./assets/icons/blue-tick.svg" alt="Blue Tick" class="blue-tick" />
+                  Verified Buyer
+                </span>
+              </div>
+            </div>
+          </div>
+
+
+          <div style="width: 70%;">
+            <div class="flex-between" style="margin-bottom: 10px;">
+              <div class="star-rating flex-center">
+                <img src="./assets/icons/default-star.svg" alt="default-star" style="width: 20px;" />
+                <img src="./assets/icons/default-star.svg" alt="default-star" style="width: 20px;" />
+                <img src="./assets/icons/default-star.svg" alt="default-star" style="width: 20px;" />
+                <img src="./assets/icons/default-star.svg" alt="default-star" style="width: 20px;" />
+                <img src="./assets/icons/blank-star.svg" alt="blank-star" style="width: 20px;" />
+              </div>
+              <p>Yesterday</p>
+            </div>
+
+            <p style="margin-bottom: 10px;">
+              Best Service I've ever got... keep it up Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Dignissimos, minus iusto! Veniam atque
+              porro ipsa nobis adipisci vel facilis, laborum quidem amet eveniet
+              vero maiores aliquid minus ut natus? Tempore.
+            </p>
+
+            <div class="flex-between">
+              <img src="./assets//images/review.jpeg" alt="review" width="80" height="80">
+
+              <div class="likes-dislikes">
+                <form action="" method="post">
+                  <button class="like-dislikes-btn" type="submit">
+                    <img src="./assets/icons/arrow-up.svg" alt="arrow up" />
+                  </button>
+                </form>
+                <p>3</p>
+                <form action="" method="post">
+                  <button class="like-dislikes-btn" type="submit">
+                    <img src="./assets/icons/arrow-down.svg" alt="arrow down" />
+                  </button>
+                </form>
+                <p>2</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="./js/script.js"></script>
+</body>
+
 </html>
