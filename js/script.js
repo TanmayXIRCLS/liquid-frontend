@@ -8,9 +8,9 @@ const customBorderWidth = document.getElementById('customBorderWidth')
 const reviewTotal = document.getElementById('reviewTotal')
 const productPhotosBody = document.getElementById('productPhotosBody')
 const btnList = Array.from(document.getElementsByTagName("button"))
+const productPhotosList = 28
 
-const productPhotos = 10
-const productPhotosList = 30
+var productPhotos = 10
 let ele = document.querySelector(':root');
 let cs = getComputedStyle(ele);
 let reviewsBody = document.getElementById("reviewsBody");
@@ -71,7 +71,7 @@ const fetchReview = () => {
                     <div class="card reviewsCard">
                         <div class="reviewsCardBody">
                 
-                        <div style="width: 25%;">
+                        <div class="cardBodyLeft">
                             <div class="reviewerInfo">
                             <div class="avatar flex-center"><span>${getNameInitials(ele?.customer?.name)} </span></div>
                             <div>
@@ -85,7 +85,7 @@ const fetchReview = () => {
                         </div>
                 
                 
-                        <div style="width: 70%;">
+                        <div class="cardBodyRight">
                             <div class="flex-between" style="margin-bottom: 10px;">
                             <div class="star-rating flex-center">
                                 ${starImages.map(src => {
@@ -149,4 +149,3 @@ customBtn.addEventListener("click", () => {
     // dislikeOn = !dislikeOn
     // fetchReview()
 })
-

@@ -138,12 +138,14 @@ input[type="color"] {
     margin: 8px 0;
 }
 
+/* review header */
 .reviewHeader {
     color: var(--text-color);
 }
 
 .reviewHeaderBody {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
@@ -180,6 +182,7 @@ input[type="color"] {
     color: var(--bg-color-1);
 }
 
+/* product photos */
 .productPhotosBody {
     display: flex;
     flex-wrap: wrap;
@@ -222,6 +225,8 @@ input[type="color"] {
     width: 100%;
 }
 
+/* reviews card */
+
 .reviewsBody {
     display: flex;
     flex-wrap: wrap;
@@ -247,6 +252,14 @@ input[type="color"] {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+}
+
+.cardBodyLeft {
+    width: 25%;
+}
+
+.cardBodyRight {
+    width: 70%;
 }
 
 .reviewerInfo {
@@ -293,5 +306,17 @@ input[type="color"] {
 @media screen and (max-width: 785px) {
     .reviewsCard {
         width: 80%;
+    }
+
+    .reviewHeaderBodyRight {
+        border-right: none;
+    }
+
+    .cardBodyLeft {
+        width: 100%;
+    }
+
+    .cardBodyRight {
+        width: 100%;
     }
 }
